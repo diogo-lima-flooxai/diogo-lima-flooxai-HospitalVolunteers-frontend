@@ -5,7 +5,7 @@ const Nav = () => {
   return (
     <div>
       <Link to='/login' className='font-medium mr-4 hover:underline'>Entrar</Link>
-      <Link to='/' className='font-medium mr-5 hover:underline'>Registre-se</Link>
+      <Link to='/register' className='font-medium mr-5 hover:underline'>Registre-se</Link>
     </div>
   )
 }
