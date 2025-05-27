@@ -1,9 +1,38 @@
-// src/Pages/Register/Register.jsx
-
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 
 const Register = () => {
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+        const response = await axios.post("http://localhost:3001/api/voluntarios", form)
+        alert("Conta criada com sucesso!");
+        console.log(response.data);
+        setForm({
+          name: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+        });
+    } catch (error){
+        console.error("Erro ao criar conta:", error);
+        alert("Erro ao criar conta. Por favor, tente novamente.");
+    }
+  }
+
   return (
     <div className="min-h-screen bg-blue-50 flex items-center justify-center">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
@@ -11,12 +40,14 @@ const Register = () => {
         <p className="text-center text-gray-600 mb-4">
           Preencha os campos abaixo para criar uma nova conta.
         </p>
-        <form className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block mb-1">Nome</label>
             <input
               type="text"
-              name="nome"
+              name="name"
+              value={form.name}
+              onChange={handleChange}
               className="w-full border border-gray-300 px-4 py-2 rounded focus:outline-none focus:ring focus:ring-blue-200"
               placeholder="Seu nome completo"
               required
@@ -27,6 +58,8 @@ const Register = () => {
             <input
               type="email"
               name="email"
+              value={form.email}
+              onChange={handleChange}
               className="w-full border border-gray-300 px-4 py-2 rounded focus:outline-none focus:ring focus:ring-blue-200"
               placeholder="seuemail@exemplo.com"
               required
@@ -36,22 +69,26 @@ const Register = () => {
             <label className="block mb-1">Senha</label>
             <input
               type="password"
-              name="senha"
+              name="password"
+              value={form.password}
+              onChange={handleChange}
               className="w-full border border-gray-300 px-4 py-2 rounded focus:outline-none focus:ring focus:ring-blue-200"
               placeholder="******"
               required
             />
-          </div> 
+          </div>
           <div>
             <label className="block mb-1">Confirme a Senha</label>
             <input
               type="password"
-              name="confirmarSenha"
+              name="confirmPassword"
+              value={form.confirmPassword}
+              onChange={handleChange}
               className="w-full border border-gray-300 px-4 py-2 rounded focus:outline-none focus:ring focus:ring-blue-200"
               placeholder="******"
               required
             />
-            </div>
+          </div>
           <button
             type="submit"
             className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
