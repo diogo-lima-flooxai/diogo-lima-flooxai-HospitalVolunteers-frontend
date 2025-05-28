@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "../../Components/Header/HEader";
+import Header from "../../Components/Header/Header";
 import Card from "../../Components/Cards/Card";
 import ListOpportunities from "../../Components/Cards/ListOpportunities";
 import Footer from "../../Components/Footer/Footer";
