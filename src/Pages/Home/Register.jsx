@@ -7,7 +7,6 @@ const Register = () => {
     name: "",
     email: "",
     password: "",
-    confirmPassword: "",
   });
 
   const handleChange = (e) => {
@@ -18,20 +17,25 @@ const Register = () => {
     e.preventDefault();
 
     try {
-        const response = await axios.post("http://localhost:3001/api/voluntarios", form)
-        alert("Conta criada com sucesso!");
-        console.log(response.data);
-        setForm({
-          name: "",
-          email: "",
-          password: "",
-          confirmPassword: "",
-        });
-    } catch (error){
-        console.error("Erro ao criar conta:", error);
-        alert("Erro ao criar conta. Por favor, tente novamente.");
+      const response = await axios.post("http://localhost:3001/api/register", {
+        name: form.name,
+        email: form.email,
+        password: form.password,
+      });
+    } catch (error) {
+      const msg = error?.response?.data?.error;
+
+      if (msg === "Email já cadastrado.") {
+        alert("Erro: Email já cadastrado.");
+      } else if (msg === "Nome já cadastrado.") {
+        alert("Erro: Nome já cadastrado.");
+      } else if (msg === "Senha já cadastrada.") {
+        alert("Erro: Senha já cadastrada.");
+      } else {
+        alert("Erro ao criar conta. Tente novamente.");
+      }
     }
-  }
+  };
 
   return (
     <div className="min-h-screen bg-blue-50 flex items-center justify-center">
@@ -71,18 +75,6 @@ const Register = () => {
               type="password"
               name="password"
               value={form.password}
-              onChange={handleChange}
-              className="w-full border border-gray-300 px-4 py-2 rounded focus:outline-none focus:ring focus:ring-blue-200"
-              placeholder="******"
-              required
-            />
-          </div>
-          <div>
-            <label className="block mb-1">Confirme a Senha</label>
-            <input
-              type="password"
-              name="confirmPassword"
-              value={form.confirmPassword}
               onChange={handleChange}
               className="w-full border border-gray-300 px-4 py-2 rounded focus:outline-none focus:ring focus:ring-blue-200"
               placeholder="******"
