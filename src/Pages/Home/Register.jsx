@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 const Register = () => {
@@ -9,6 +11,8 @@ const Register = () => {
     password: "",
   });
 
+  const navigate = useNavigate()
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -17,11 +21,15 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:3001/api/register", {
+       await axios.post("http://localhost:3001/api/register", {
         name: form.name,
         email: form.email,
         password: form.password,
-      });
+      }); 
+
+      alert("Conta criada com sucesso!")
+      navigate('/login')
+
     } catch (error) {
       const msg = error?.response?.data?.error;
 
