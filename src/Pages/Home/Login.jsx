@@ -8,7 +8,6 @@ const Login = () => {
     password: "",
   });
 
-  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -17,7 +16,6 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
 
     try {
       const response = await axios.post("http://localhost:3001/api/login", {
@@ -39,11 +37,11 @@ const Login = () => {
       const msg = error?.response?.data?.error;
 
       if (msg === "Email não encontrado.") {
-        setError("Email não cadastrado.");
+        alert("Email não cadastrado.");
       } else if (msg === "Senha incorreta.") {
-        setError("Senha incorreta.");
+        alert("Senha incorreta.");
       } else {
-        setError("Erro ao fazer login. Tente novamente.");
+        alert("Erro ao fazer login. Tente novamente.");
       }
     }
   };
@@ -51,7 +49,7 @@ const Login = () => {
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-blue-100">
       <h1 className="text-3xl font-bold mb-6">Login</h1>
-      <form className="bg-white p-8 rounded-2xl shadow-md w-96">
+      <form onSubmit={handleSubmit} className= "bg-white p-8 rounded-2xl shadow-md w-96">
         <div className="mb-4">
           <label className="block text-sm font-medium mb-2" htmlFor="email">
             Email
