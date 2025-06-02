@@ -7,17 +7,27 @@ const ListOpportunities = () => (
       Oportunidades em Destaque
     </h3>
     <div className="text-center grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div className="p-9 bg-red-400 border rounded-lg shadow">
-        <h4 className="font-bold text-lg mb-2">Doação de Sangue</h4>
-        <p>Hospital São Lucas precisa de doadores com urgência.</p>
+      <div className="bg-white border rounded-xl p-6 shadow hover:shadow-lg transition">
+        <h4 className="text-lg font-semibold text-red-700">Doação de Sangue</h4>
+        <p className="text-sm text-gray-600 mt-2">
+          Hospital São Lucas precisa de doadores com urgência.
+        </p>
       </div>
-      <div className="p-9 bg-lime-400 border rounded-lg shadow">
-        <h4 className="font-bold text-lg mb-2">Apoio Psicológico</h4>
-        <p>Volutários para conversar com pacientes internados</p>
+      <div className="bg-white border rounded-xl p-6 shadow hover:shadow-lg transition">
+        <h4 className="text-lg font-semibold text-orange-600">
+          Apoio Psicológico
+        </h4>
+        <p className="text-sm text-gray-600 mt-2">
+          Volutários para conversar com pacientes internados
+        </p>
       </div>
-      <div className="p-9 bg-amber-400 border rounded-lg shadow">
-        <h4 className="font-bold text-lg mb-2">Ajuda em Logistica</h4>
-        <p>Ajude organizar doações e entregas no hospital</p>
+      <div className="bg-white border rounded-xl p-6 shadow hover:shadow-lg transition">
+        <h4 className="text-lg font-semibold text-amber-400">
+          Ajuda em Logistica
+        </h4>
+        <p className="text-sm text-gray-600 mt-2">
+          Ajude organizar doações e entregas no hospital
+        </p>
       </div>
     </div>
   </section>

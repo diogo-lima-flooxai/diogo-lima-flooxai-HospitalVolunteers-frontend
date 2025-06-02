@@ -3,6 +3,8 @@ import axios from "axios";
 
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import Header from "../../Components/Header/Header";
+import Footer from "../../Components/Footer/Footer";
 
 const Register = () => {
   const [form, setForm] = useState({
@@ -46,6 +48,8 @@ const Register = () => {
   };
 
   return (
+    <>
+    <Header/>
     <div className="min-h-screen bg-blue-50 flex items-center justify-center">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-center">Criar Conta</h2>
@@ -104,6 +108,8 @@ const Register = () => {
         </p>
       </div>
     </div>
+    <Footer/>
+    </>
   );
 };
 

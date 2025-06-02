@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Header from "../../Components/Header/Header";
+import Footer from "../../Components/Footer/Footer";
 
 const Login = () => {
   const [form, setForm] = useState({
@@ -47,8 +49,10 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-blue-100">
-      <h1 className="text-3xl font-bold mb-6">Login</h1>
+    <>
+    <Header />
+    <div className="flex flex-col items-center justify-center h-screen bg-blue-50">
+      <h1 className="text-3xl font-bold mb-7">Login</h1>
       <form onSubmit={handleSubmit} className= "bg-white p-8 rounded-2xl shadow-md w-96">
         <div className="mb-4">
           <label className="block text-sm font-medium mb-2" htmlFor="email">
@@ -92,7 +96,9 @@ const Login = () => {
           Registre-se
         </a>
       </p>
+      <Footer/>
     </div>
+    </>
   );
 };
 export default Login;

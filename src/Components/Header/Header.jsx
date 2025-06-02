@@ -3,9 +3,9 @@ import Nav from "../Nav/Nav";
 
 const Header = () => {
   return (
-    <header className="bg-cyan-700 text-white p-6 shadow-md">
+    <header className="bg-white shadow-sm py-4">
       <div className="container mx-auto flex justify-between items-center">
-        <h1 className="text-2xl font-semibold ">Volutarios para Hospitais</h1>
+        <h1 className="text-3xl font-bold text-blue-950">VoluteersH</h1>
         <Nav />
       </div>
     </header>
