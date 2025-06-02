@@ -2,13 +2,54 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Footer from "../Components/Footer/Footer";
 
+const Modal = ({ isOpen, onClose, children }) => {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+        {children}
+        <div className="text-right mt-4">
+          <button
+            onClick={onClose}
+            className="text-sm text-gray-600 hover:text-gray-900"
+          >
+            Fechar
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const VolunteerDashboard = () => {
-  const [userData] = useState({
+  const [userData, setUserData] = useState({
     nome: "Diogo",
     ajudasConcluidas: 12,
     proximasAcoes: 3,
     disponibilidade: ["Seg", "Qua", "Sex"],
   });
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [disponibilidadeTemp, setDisponibilidadeTemp] = useState(
+    userData.disponibilidade
+  );
+
+  const diasDaSemana = ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"];
+
+  const toggleDia = (dia) => {
+    setDisponibilidadeTemp((prev) =>
+      prev.includes(dia) ? prev.filter((d) => d !== dia) : [...prev, dia]
+    );
+  };
+
+  const salvarDisponibilidade = () => {
+    setUserData((prev) => ({
+      ...prev,
+      disponibilidade: disponibilidadeTemp,
+    }));
+    setIsModalOpen(false);
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -37,7 +78,9 @@ const VolunteerDashboard = () => {
           <h2 className="text-2xl text-center font-semibold mb-4">
             Painel principal
           </h2>
-          <h2 className="text-4xl font-semibold mb-4">Olá, {userData.nome} 👋🏼 </h2>
+          <h2 className="text-4xl font-semibold mb-4">
+            Olá, {userData.nome} 👋🏼{" "}
+          </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
             <div className="bg-blue-100 p-4 rounded">
@@ -59,7 +102,13 @@ const VolunteerDashboard = () => {
               Você está disponivel:{" "}
               <strong>{userData.disponibilidade.join(", ")}</strong>
             </p>
-            <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+            <button
+              onClick={() => {
+                setDisponibilidadeTemp(userData.disponibilidade); //Reset ao abrir
+                setIsModalOpen(true);
+              }}
+              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+            >
               Atualizar disponibilidade
             </button>
           </div>
@@ -67,7 +116,7 @@ const VolunteerDashboard = () => {
 
         {/* Atualizações */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <section className="bg-white p-4 rounded-lg shadow">
+          <section className="bg-white p-4 rounded-lg shadow ">
             <h3 className="font-medium mb-2">Últimas atualizações</h3>
             <ul className="text-sm space-y-1">
               <li>ex1</li>
@@ -77,12 +126,37 @@ const VolunteerDashboard = () => {
           <section className="bg-white p-4 rounded-lg shadow">
             <h3 className="font-medium mb-2">Últimas atualizações</h3>
             <ul className="text-sm space-y-1">
-              <li>Ex3</li>
-              <li>Ex4</li>
+              <li>ex3</li>
+              <li>ex4</li>
             </ul>
           </section>
         </div>
       </main>
+
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <h2 className="text-lg font-semibold mb-4">
+          Atualizar Disponibilidade
+        </h2>
+        <div className="space-y-2">
+          {diasDaSemana.map((dia) => (
+            <label key={dia} className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                checked={disponibilidadeTemp.includes(dia)}
+                onChange={() => toggleDia(dia)}
+              />
+              <span>{dia}</span>
+            </label>
+          ))}
+        </div>
+        <button
+          onClick={salvarDisponibilidade}
+          className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        >
+          Salvar
+        </button>
+      </Modal>
+
       <Footer />
     </div>
   );
