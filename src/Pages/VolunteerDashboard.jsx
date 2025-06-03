@@ -31,6 +31,7 @@ const VolunteerDashboard = () => {
   });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [disponibilidadeTemp, setDisponibilidadeTemp] = useState(
     userData.disponibilidade
   );
@@ -50,7 +51,6 @@ const VolunteerDashboard = () => {
     }));
     setIsModalOpen(false);
   };
-
   return (
     <div className="min-h-screen bg-gray-50">
       <nav className="bg-white shadow px-6 py-4 flex justify-between items-center">
@@ -59,9 +59,16 @@ const VolunteerDashboard = () => {
           <Link to="/" className="hover:underline">
             Inicio
           </Link>
-          <Link to="#" className="hover:underline">
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              setIsProfileModalOpen(true);
+            }}
+            className="hover:underline"
+          >
             Perfil
-          </Link>
+          </a>
           <Link to="#" className="hover:underline">
             Configurações
           </Link>
@@ -133,6 +140,7 @@ const VolunteerDashboard = () => {
         </div>
       </main>
 
+      {/* Modal atualizando disponibilidade do voluntario  */}
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <h2 className="text-lg font-semibold mb-4">
           Atualizar Disponibilidade
@@ -157,6 +165,27 @@ const VolunteerDashboard = () => {
         </button>
       </Modal>
 
+      {/* Modal Perfil do Usuario  */}
+      <Modal
+        isOpen={isProfileModalOpen}
+        onClose={() => setIsProfileModalOpen(false)}
+      >
+        <h2 className="text-xl font-bold mb-4">Perfil do Voluntário</h2>
+        <div className="space-y-2">
+          <p>
+            <strong>Nome: </strong>
+            
+          </p>
+          <p>
+            <strong>E-mail: </strong>
+            
+          </p>
+          <p>
+            <strong>Área de interesse: </strong>
+            
+          </p>
+        </div>
+      </Modal>
       <Footer />
     </div>
   );
